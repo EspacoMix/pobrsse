@@ -1,6 +1,5 @@
 /*
   Web Server
-
  */
 
 #include <SPI.h>
@@ -26,58 +25,38 @@ void loop() {
       if(client.available()){
         char c = client.read();
         Serial.print(c);
-
         if(readString.length()<100){
           readString +=c;
-          
-          }
-          if(c='\n'){
-        Serial.print(readString);
-        client.println("<HTTP/1.1 200 OK>");
-        client.println("<Connection-Type: text/html>");
-        client.println("<Connection: close>");
-        client.println("");
+        }
+        if(c='\n'){
+          Serial.print(readString);
+          client.println("<HTTP/1.1 200 OK>");
+          client.println("<Connection-Type: text/html>");
+          client.println("<Connection: close>");
+          client.println("");
         
-        client.println("<!DOCTYPE html>");
-        client.println("<html>");
-        client.println("<head>");
-        client.println("<title> Web Serve</title>");
-        client.println("</head>");
-        client.println("<body>");
-        client.println("<a href=\"/?button1on\"\"><button>Led on</button></a>");
-        client.println("<a href=\"/?button2off\"\"><button>Led off</button></a>");
-        client.println("<body style=backgrond-color:powderblue>");
+          client.println("<!DOCTYPE html>");
+          client.println("<html>");
+          client.println("<head>");
+          client.println("<title> Web Serve</title>");
+          client.println("</head>");
+          client.println("<body>");
+          client.println("<a href=\"/?button1on\"\"><button>Led on</button></a>");
+          client.println("<a href=\"/?button2off\"\"><button>Led off</button></a>");
+          client.println("<body style=backgrond-color:powderblue>");
 
-        delay(1);
-        client.stop();
+          delay(1);
+          client.stop();
 
-        if(readString.indexOf("?button1on")>0){
-          digitalWrite(led,HIGH);
-          }else if(readString.indexOf("?button2off")>0){
-          digitalWrite(led,LOW);
+          if(readString.indexOf("?button1on")>0){
+            digitalWrite(led,HIGH);
           }
-        readString="";
+          else if(readString.indexOf("?button2off")>0){
+            digitalWrite(led,LOW);
+          }
+          readString="";
+        }
       }
-    }}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=
+    }
+  }
+}
